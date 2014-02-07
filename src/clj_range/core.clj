@@ -29,5 +29,10 @@
      (and (<= (cmp fst x) 0) ((if incl <= <) (cmp x lst) 0))))
 
 (defn overlaps? "returns true ranges overlap"
-   [[fst1 _ _ _ :as r1] [fst2 _ _ _ :as r2]]
-   (or (includes? r2 fst1) (includes? r1 fst2))) 
+   [[fst1 _ _ _ :as r1] [fst2 _ _ _ :as r2] & rest]
+   (if (empty? rest)
+     (or (includes? r2 fst1) (includes? r1 fst2))
+     (or (overlaps? r1 r2) (some #(overlaps? r1 %) rest) (some #(overlaps? r2 %) rest))))
+
+
+

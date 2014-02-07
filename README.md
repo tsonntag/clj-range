@@ -16,14 +16,28 @@ Create a range with range, specifying the first and last element:
 
     => (r/range 0 10)
 
+Access the first and last element with fst and lst:
+
+    => (r/fst (r/range 0 10))
+       0
+
+    => (r/lst (r/range 0 10))
+       10
+
 The first element is inclusive and the last element is exclusive by default:
+
+    => (r/inclusive? (r/range 0 10)) 
+       false
 
     => (r/includes? (r/range 0 10) 10)
        false
 
-Create a range with the last element being exclusive:
+Create a range with the last element being inclusive:
 
-    => (r/includes? (r/range 0 10 :inclusive 10)
+    => (r/inclusive? (r/range 0 10 :inclusive)) 
+       true
+
+    => (r/includes? (r/range 0 10 :inclusive) 10)
        true
 
 Default comparator is compare from clojure.core.
@@ -31,6 +45,10 @@ Default comparator is compare from clojure.core.
 You may provide your own comparator:
 
     => (r/range 0 10 my-compare)
+
+Access the comparator with cmp:
+    => (r/cmp (r/range 0 10 my-compare))
+    my-compare
 
 The :inclusive keyword is expected before the comparator:
 
@@ -50,7 +68,7 @@ Use includes? to check if an element is within the range:
     => (r/includes? (r/range 0 10 :inclusive) 10 
     true
 
-User overlaps? to check for overlaps:
+Use overlaps? to check for overlaps:
 
     => (r/overlaps? (r/range 0 10) (r/range 10 20)
     false
@@ -59,6 +77,17 @@ User overlaps? to check for overlaps:
     true
 
     => (r/overlaps? (r/range 0 10) (r/range 5 20)
+    true
+
+    => (r/overlaps? (r/range 0 20) (r/range 5 10)
+    true
+
+overlaps? also works for more then two ranges:
+
+    => (r/overlaps? (r/range 0 10) (r/range 20 30) (r/range 40 50))
+    false
+
+    => (r/overlaps? (r/range 0 20) (r/range 10 30) (r/range 40 50))
     true
 
 ## License
