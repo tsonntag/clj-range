@@ -82,7 +82,7 @@ Use overlaps? to check for overlaps:
     => (r/overlaps? (r/range 0 20) (r/range 5 10)
     true
 
-overlaps? also works for more then two ranges:
+overlaps? also works for more than two ranges:
 
     => (r/overlaps? (r/range 0 10) (r/range 20 30) (r/range 40 50))
     false
