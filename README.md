@@ -47,6 +47,7 @@ You may provide your own comparator:
     => (r/range 0 10 my-compare)
 
 Access the comparator with cmp:
+
     => (r/cmp (r/range 0 10 my-compare))
        my-compare
 
