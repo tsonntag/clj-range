@@ -48,7 +48,7 @@ You may provide your own comparator:
 
 Access the comparator with cmp:
     => (r/cmp (r/range 0 10 my-compare))
-    my-compare
+       my-compare
 
 The :inclusive keyword is expected before the comparator:
 
