@@ -3,6 +3,12 @@
 "Clojure api for basic range functions like includes? overlaps?"
  
 (defn range 
+  "create range. Examples:
+   (range 0 10) creates a range from 0 until excluding 10
+   (range 0 10 :inclusive) creates range including 10
+   (range 0 10 my-compare) creates range with given compare function
+   (range 0 10 :inclusive my-compare)"
+
   ([fst lst] (range fst lst false compare))
 
   ([fst lst incl-or-cmp]
@@ -28,7 +34,7 @@
      (do; (println fst lst incl cmp :x x :inc (if incl <= <) (cmp fst x) (cmp x lst))
      (and (<= (cmp fst x) 0) ((if incl <= <) (cmp x lst) 0))))
 
-(defn overlaps? "returns true ranges overlap"
+(defn overlaps? "returns true if rt least 2 ranges overlap"
    [[fst1 _ _ _ :as r1] [fst2 _ _ _ :as r2] & rest]
    (if (empty? rest)
      (or (includes? r2 fst1) (includes? r1 fst2))
