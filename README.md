@@ -69,7 +69,7 @@ Use includes? to check if an element is within the range:
     => (r/includes? (r/range 0 10 :inclusive) 10 
     true
 
-You may a vector instead of r/range:
+You may use a vector instead of r/range:
 
     => (r/includes? [0 10] 5 
     true
