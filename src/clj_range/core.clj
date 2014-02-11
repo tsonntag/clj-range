@@ -30,9 +30,9 @@
 (defn cmp  "returns compare fn for range" [[_ _ _ cmp]] cmp)
 
 (defn includes? "returns true if x is in range"
-   [[fst lst incl cmp :as range] x]
-     (do; (println fst lst incl cmp :x x :inc (if incl <= <) (cmp fst x) (cmp x lst))
-     (and (<= (cmp fst x) 0) ((if incl <= <) (cmp x lst) 0))))
+   [[fst lst incl cmp] x]
+     (let [cmp (or cmp compare)]
+       (and (<= (cmp fst x) 0) ((if incl <= <) (cmp x lst) 0))))
 
 (defn overlaps? "returns true if rt least 2 ranges overlap"
    [[fst1 _ _ _ :as r1] [fst2 _ _ _ :as r2] & rest]

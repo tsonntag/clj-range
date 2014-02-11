@@ -17,7 +17,7 @@
     (defn f [x# y#] 0)
     (is (= f (r/cmp (r/range ~fst ~lst f)))))
 
-  (testing "includes"
+  (testing "includes?"
     (testing "exclusive"
       (is      (r/includes? (r/range ~fst ~lst) ~fst))
       (is      (r/includes? (r/range ~fst ~lst) ~mid1))
@@ -29,11 +29,23 @@
       (is (not (r/includes? (r/range ~fst ~lst :exclusive) ~lst)))
       (is (not (r/includes? (r/range ~mid1 ~lst :exclusive) ~fst))))
 
+    (testing "exclusive for vec"
+      (is      (r/includes? [~fst  ~lst]  ~fst))
+      (is      (r/includes? [~fst  ~lst]  ~mid1))
+      (is (not (r/includes? [~fst  ~lst]  ~lst)))
+      (is (not (r/includes? [~mid1 ~lst]  ~fst))))
+
     (testing "inclusive"
       (is      (r/includes? (r/range ~fst ~lst :inclusive) ~fst))
       (is      (r/includes? (r/range ~fst ~lst :inclusive) ~mid1))
       (is      (r/includes? (r/range ~fst ~lst :inclusive) ~lst))
-      (is (not (r/includes? (r/range ~mid1 ~lst :inclusive) ~fst)))))
+      (is (not (r/includes? (r/range ~mid1 ~lst :inclusive) ~fst))))
+
+    (testing "inclusive for vec"
+      (is      (r/includes? [~fst  ~lst :inclusive] ~fst))
+      (is      (r/includes? [~fst  ~lst :inclusive] ~mid1))
+      (is      (r/includes? [~fst  ~lst :inclusive] ~lst))
+      (is (not (r/includes? [~mid1 ~lst :inclusive] ~fst)))))
 
   (testing "overlaps?"
     (testing "exclusive"
@@ -42,11 +54,23 @@
       (is       (r/overlaps? (r/range ~fst ~lst ) (r/range ~mid1 ~mid2))); ([])
       (is       (r/overlaps? (r/range ~fst ~mid2) (r/range ~mid1 ~lst))); ([)]
     )
+    (testing "exclusive for vec"
+      (is (not  (r/overlaps? [~fst ~mid1] [~mid2 ~lst ]))); ()[]
+      (is (not  (r/overlaps? [~fst ~mid1] [~mid1 ~lst ]))); (|)
+      (is       (r/overlaps? [~fst ~lst ] [~mid1 ~mid2])); ([])
+      (is       (r/overlaps? [~fst ~mid2] [~mid1 ~lst ])); ([)]
+    )
     (testing "inclusive"
       (is (not  (r/overlaps? (r/range ~fst ~mid1 :inclusive) (r/range ~mid2 ~lst)))); ()[]
       (is       (r/overlaps? (r/range ~fst ~mid1 :inclusive) (r/range ~mid1 ~lst))); (|)
       (is       (r/overlaps? (r/range ~fst ~lst  :inclusive) (r/range ~mid1 ~mid2))); ([])
       (is       (r/overlaps? (r/range ~fst ~mid2 :inclusive) (r/range ~mid1 ~lst))); ([)]
+    )
+    (testing "inclusive for vec"
+      (is (not  (r/overlaps? [~fst ~mid1 :inclusive] [~mid2 ~lst ]))); ()[]
+      (is       (r/overlaps? [~fst ~mid1 :inclusive] [~mid1 ~lst ])); (|)
+      (is       (r/overlaps? [~fst ~lst  :inclusive] [~mid1 ~mid2])); ([])
+      (is       (r/overlaps? [~fst ~mid2 :inclusive] [~mid1 ~lst ])); ([)]
     )
   )
 

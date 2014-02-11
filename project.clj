@@ -1,4 +1,4 @@
-(defproject clj-range "0.1.0-SNAPSHOT"
+(defproject clj-range "0.2.0-SNAPSHOT"
   :description "basic operations for ranges"
   :url "http://github.com/tracksun/clj-range"
   :license {:name "Eclipse Public License"
