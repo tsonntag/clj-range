@@ -69,6 +69,20 @@ Use includes? to check if an element is within the range:
     => (r/includes? (r/range 0 10 :inclusive) 10 
     true
 
+You may a vector instead of r/range:
+
+    => (r/includes? [0 10] 5 
+    true
+
+    => (r/includes? [0 10] 15 
+    false
+
+    => (r/includes? [0 10] 10 
+    false
+
+    => (r/includes? [0 10 true] 10 
+    true
+
 Use overlaps? to check for overlaps:
 
     => (r/overlaps? (r/range 0 10) (r/range 10 20)
@@ -89,6 +103,11 @@ overlaps? also works for more than two ranges:
     false
 
     => (r/overlaps? (r/range 0 20) (r/range 10 30) (r/range 40 50))
+    true
+
+overlaps? also works for vectors:
+
+    => (r/overlaps? [0 10] [5 20]
     true
 
 ## License
